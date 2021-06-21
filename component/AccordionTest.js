@@ -60,7 +60,7 @@ export default function AccordionTest() {
               fontSize: 20,
               marginRight: 100,
               justifyContent: 'flex-start',
-              padding: 10,
+              padding: 5,
             }}>
             {item.name}
           </Text>
@@ -161,7 +161,6 @@ export default function AccordionTest() {
 
   return (
     <Container>
-      <Header />
       <Content padder>
         <Accordion
           dataArray={state}
@@ -172,22 +171,19 @@ export default function AccordionTest() {
         />
       </Content>
       <Footer>
-        <FooterTab>
-          <Button vertical>
-            <Icon name="apps" />
-            <Text>Apps</Text>
+        <FooterTab style={{backgroundColor: '#172F2D'}}>
+          <Button>
+            <Icon name="arrow-back" style={{color: 'white'}} />
+            <Text style={{color: 'white'}}>Back</Text>
           </Button>
-          <Button vertical>
-            <Icon name="camera" />
-            <Text>Camera</Text>
+          <Button>
+            <Icon name="home" style={{color: 'white'}} />
+            <Text style={{color: 'white'}}>Home</Text>
           </Button>
-          <Button vertical>
-            <Icon active name="navigate" />
-            <Text>Navigate</Text>
-          </Button>
-          <Button vertical>
-            <Icon name="person" />
-            <Text>Contact</Text>
+
+          <Button>
+            <Icon name="menu" style={{color: 'white'}} />
+            <Text style={{color: 'white'}}>Menu</Text>
           </Button>
         </FooterTab>
       </Footer>
