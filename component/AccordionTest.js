@@ -49,7 +49,7 @@ export default function AccordionTest() {
       <List style={styles.headMain}>
         <Thumbnail style={{width: 40, height: 40}} source={{uri: url}} />
 
-        <View>
+        <View style={{marginLeft:9}}>
           <Text
             style={
               (styles.headTitle,
@@ -103,7 +103,7 @@ export default function AccordionTest() {
             style={{
               textAlign: 'center',
               fontSize: 17,
-              fontFamily: 'DancingScript-VariableFont_wght',
+              fontFamily: 'sans-serif-medium',
             }}>
             mobile {item.phone}
           </Text>
@@ -135,7 +135,7 @@ export default function AccordionTest() {
 
   return (
     <Container>
-      <Content padder>
+      <Content >
         <Accordion
           dataArray={state}
           animation={true}
@@ -174,23 +174,25 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     padding: 5,
 
-    fontFamily: 'DancingScript-VariableFont_wght',
+    fontFamily: 'sans-serif-medium',
   },
   headMain: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    fontFamily: 'Roboto-BlackItalic',
+   
     padding: 3,
     borderBottomWidth: 0.15,
     borderTopWidth: 0.1,
-    fontFamily: 'DancingScript-VariableFont_wght',
+    fontFamily: 'sans-serif-medium',
+    marginLeft:5,
+    marginTop:5
   },
   addtoContact: {
     textAlign: 'center',
     fontSize: 17,
     color: 'green',
     fontWeight: 'bold',
-    fontFamily: 'DancingScript-VariableFont_wght',
+    fontFamily: 'sans-serif-medium',
   },
   contactDropdown: {
     display: 'flex',
@@ -199,7 +201,7 @@ const styles = StyleSheet.create({
     marginLeft: 50,
     marginRight: 50,
     marginTop: 10,
-    fontFamily: 'DancingScript-VariableFont_wght',
+    fontFamily: 'sans-serif-medium',
   },
 
   clrWhite: {color: 'white'},
