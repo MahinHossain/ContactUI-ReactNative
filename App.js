@@ -28,10 +28,15 @@ import {
 } from 'native-base';
 import Accordion from './component/AccordionTest';
 import ModalT from './component/ModalT';
-
+import 'react-native-gesture-handler';
+import * as React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
 export default function App() {
   return (
-    <Accordion />
+    <NavigationContainer>
+      <Accordion />
+    </NavigationContainer>
+
     // <ModalT />
   );
 }
