@@ -112,17 +112,21 @@ export default function AccordionTest() {
         )}
 
         <View style={styles.contactDropdown}>
-          <View
-            rounded
-            style={styles.biWhite}
-            onPress={() => Linking.openURL(`tel:${item.phone}`)}>
-            <Icon type="FontAwesome" name="phone" style={{color: 'green'}} />
+          <View style={styles.biWhite}>
+            <Icon
+              type="FontAwesome"
+              name="phone"
+              style={{color: 'green'}}
+              onPress={() => Linking.openURL(`tel:${item.phone}`)}
+            />
           </View>
-          <View
-            rounded
-            style={styles.biWhite}
-            onPress={() => Linking.openURL(`sms:${item.phone}`)}>
-            <Icon type="FontAwesome5" name="sms" style={{color: 'coral'}} />
+          <View style={styles.biWhite}>
+            <Icon
+              type="FontAwesome5"
+              name="sms"
+              style={{color: 'coral'}}
+              onPress={() => Linking.openURL(`sms:${item.phone}`)}
+            />
           </View>
           <View rounded style={styles.biWhite} onPress={() => alert('blok')}>
             <Icon type="FontAwesome5" name="camera" style={{color: 'green'}} />
