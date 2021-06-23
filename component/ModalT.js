@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import * as Animatable from 'react-native-animatable';
-import {Text, View, TouchableWithoutFeedback} from 'react-native';
+import {Text, View, TouchableWithoutFeedback, ScrollView} from 'react-native';
 import {useRef} from 'react';
 import {useEffect} from 'react';
 function ExampleView() {
@@ -31,17 +31,68 @@ function ExampleView() {
         <Text style={{fontFamily: 'serif'}}> serif </Text>
         <Text style={{fontFamily: 'Roboto'}}> Roboto </Text>
         <Text style={{fontFamily: 'monospace'}}> monospace </Text> */}
-
-        <Text style={{fontFamily: 'normal'}}> normal </Text>
-        <Text style={{fontFamily: 'notoserif'}}> Hello </Text>
-        <Text style={{fontFamily: 'sans-serif'}}> Hello </Text>
-        <Text style={{fontFamily: 'sans-serif-light'}}> Helloht </Text>
-        <Text style={{fontFamily: 'sans-serif-thin'}}> Hello </Text>
-        <Text style={{fontFamily: 'sans-serif-condensed'}}> Hello</Text>
-        <Text style={{fontFamily: 'sans-serif-medium'}}> sHello </Text>
-        <Text style={{fontFamily: 'serif'}}> Hello </Text>
-        <Text style={{fontFamily: 'Roboto'}}> Hello </Text>
-        <Text style={{fontFamily: 'monospace'}}> Hello </Text>
+        <ScrollView>
+          <Text style={{fontFamily: 'normal'}}> normal </Text>
+          <Text style={{fontFamily: 'notoserif'}}> Hello </Text>
+          <Text style={{fontFamily: 'sans-serif'}}> Hello </Text>
+          <Text style={{fontFamily: 'sans-serif-light'}}> Helloht </Text>
+          <Text style={{fontFamily: 'sans-serif-thin'}}> Hello </Text>
+          <Text style={{fontFamily: 'sans-serif-condensed'}}> Hello</Text>
+          <Text style={{fontFamily: 'sans-serif-medium'}}> sHello </Text>
+          <Text style={{fontFamily: 'serif'}}> Hello </Text>
+          <Text style={{fontFamily: 'Roboto'}}> Hello </Text>
+          <Text style={{fontFamily: 'monospace'}}> Hello </Text>
+          <Text style={{fontFamily: 'normal'}}> normal </Text>
+          <Text style={{fontFamily: 'notoserif'}}> Hello </Text>
+          <Text style={{fontFamily: 'sans-serif'}}> Hello </Text>
+          <Text style={{fontFamily: 'sans-serif-light'}}> Helloht </Text>
+          <Text style={{fontFamily: 'sans-serif-thin'}}> Hello </Text>
+          <Text style={{fontFamily: 'sans-serif-condensed'}}> Hello</Text>
+          <Text style={{fontFamily: 'sans-serif-medium'}}> sHello </Text>
+          <Text style={{fontFamily: 'serif'}}> Hello </Text>
+          <Text style={{fontFamily: 'Roboto'}}> Hello </Text>
+          <Text style={{fontFamily: 'monospace'}}> Hello </Text>
+          <Text style={{fontFamily: 'normal'}}> normal </Text>
+          <Text style={{fontFamily: 'notoserif'}}> Hello </Text>
+          <Text style={{fontFamily: 'sans-serif'}}> Hello </Text>
+          <Text style={{fontFamily: 'sans-serif-light'}}> Helloht </Text>
+          <Text style={{fontFamily: 'sans-serif-thin'}}> Hello </Text>
+          <Text style={{fontFamily: 'sans-serif-condensed'}}> Hello</Text>
+          <Text style={{fontFamily: 'sans-serif-medium'}}> sHello </Text>
+          <Text style={{fontFamily: 'serif'}}> Hello </Text>
+          <Text style={{fontFamily: 'Roboto'}}> Hello </Text>
+          <Text style={{fontFamily: 'monospace'}}> Hello </Text>
+          <Text style={{fontFamily: 'normal'}}> normal </Text>
+          <Text style={{fontFamily: 'notoserif'}}> Hello </Text>
+          <Text style={{fontFamily: 'sans-serif'}}> Hello </Text>
+          <Text style={{fontFamily: 'sans-serif-light'}}> Helloht </Text>
+          <Text style={{fontFamily: 'sans-serif-thin'}}> Hello </Text>
+          <Text style={{fontFamily: 'sans-serif-condensed'}}> Hello</Text>
+          <Text style={{fontFamily: 'sans-serif-medium'}}> sHello </Text>
+          <Text style={{fontFamily: 'serif'}}> Hello </Text>
+          <Text style={{fontFamily: 'Roboto'}}> Hello </Text>
+          <Text style={{fontFamily: 'monospace'}}> Hello </Text>
+          <Text style={{fontFamily: 'normal'}}> normal </Text>
+          <Text style={{fontFamily: 'notoserif'}}> Hello </Text>
+          <Text style={{fontFamily: 'sans-serif'}}> Hello </Text>
+          <Text style={{fontFamily: 'sans-serif-light'}}> Helloht </Text>
+          <Text style={{fontFamily: 'sans-serif-thin'}}> Hello </Text>
+          <Text style={{fontFamily: 'sans-serif-condensed'}}> Hello</Text>
+          <Text style={{fontFamily: 'sans-serif-medium'}}> sHello </Text>
+          <Text style={{fontFamily: 'serif'}}> Hello </Text>
+          <Text style={{fontFamily: 'Roboto'}}> Hello </Text>
+          <Text style={{fontFamily: 'monospace'}}> Hello </Text>
+          <Text style={{fontFamily: 'normal'}}> normal </Text>
+          <Text style={{fontFamily: 'notoserif'}}> Hello </Text>
+          <Text style={{fontFamily: 'sans-serif'}}> Hello </Text>
+          <Text style={{fontFamily: 'sans-serif-light'}}> Helloht </Text>
+          <Text style={{fontFamily: 'sans-serif-thin'}}> Hello </Text>
+          <Text style={{fontFamily: 'sans-serif-condensed'}}> Hello</Text>
+          <Text style={{fontFamily: 'sans-serif-medium'}}> sHello </Text>
+          <Text style={{fontFamily: 'serif'}}> Hello </Text>
+          <Text style={{fontFamily: 'Roboto'}}> Hello </Text>
+          <Text style={{fontFamily: 'monospace'}}> Hello </Text>
+        </ScrollView>
       </View>
     </TouchableWithoutFeedback>
   );
