@@ -56,24 +56,31 @@ export default function AccordionTest() {
             style={
               (styles.headTitle,
               {
-                fontFamily: 'sans-serif-medium',
+                fontFamily: 'sans-serif',
                 fontSize: 19,
 
-                marginTop: 7,
+                marginTop: 3,
               })
             }>
             {item.username}
           </Text>
 
           {iscontactSaved && (
-            <Text style={{marginLeft: 20, color: 'green'}}>
+            <View style={{display: 'flex', flexDirection: 'row', marginTop: 0}}>
               <Icon
-                style={{color: 'green', fontSize: 17, marginRight: 10}}
+                style={{color: 'green', fontSize: 14, marginTop: 5}}
                 type="FontAwesome"
                 name="phone"
               />
-              unsaved
-            </Text>
+              <Text
+                style={{
+                  color: 'green',
+                  fontSize: 14,
+                  marginLeft: 5,
+                }}>
+                Unsaved
+              </Text>
+            </View>
           )}
         </View>
 
@@ -88,7 +95,11 @@ export default function AccordionTest() {
   const _renderContent = item => {
     return (
       <Animatable.View
-        style={{marginLeft: 20}}
+        style={{
+          marginLeft: 20,
+          marginTop: 0,
+          padding: 10,
+        }}
         animation="slideInRight"
         duration={100}>
         {iscontactSaved ? (
@@ -105,7 +116,7 @@ export default function AccordionTest() {
             style={{
               textAlign: 'center',
               fontSize: 18,
-              fontFamily: 'sans-serif-medium',
+              fontFamily: 'sans-serif',
             }}>
             mobile {item.phone}
           </Text>
@@ -123,16 +134,20 @@ export default function AccordionTest() {
           <View style={styles.biWhite}>
             <Icon
               type="FontAwesome5"
-              name="sms"
-              style={{color: 'coral'}}
+              name="comment-alt"
+              style={{color: '#7DCAF8'}}
               onPress={() => Linking.openURL(`sms:${item.phone}`)}
             />
           </View>
           <View rounded style={styles.biWhite} onPress={() => alert('blok')}>
-            <Icon type="FontAwesome5" name="camera" style={{color: 'green'}} />
+            <Icon type="FontAwesome5" name="video" style={{color: 'green'}} />
           </View>
           <View rounded style={styles.biWhite} onPress={() => alert('blok')}>
-            <Icon type="FontAwesome" name="info" style={{color: 'blue'}} />
+            <Icon
+              type="FontAwesome5"
+              name="info-circle"
+              style={{color: 'gray'}}
+            />
           </View>
         </View>
       </Animatable.View>
@@ -140,37 +155,29 @@ export default function AccordionTest() {
   };
 
   return (
-    <Container>
-      <Content>
-        <Accordion
-          dataArray={state}
-          animation={true}
-          expanded={[]}
-          renderHeader={_renderHeader}
-          renderContent={_renderContent}
-        />
-      </Content>
-      <Footer style={{backgroundColor: 'white'}}>
-        <FooterTab
-          style={{
-            backgroundColor: 'white',
-            justifyContent: 'space-between',
-            textAlign: 'center',
-            padding: 8,
-            marginLeft: 40,
-            marginRight: 40,
-          }}>
+    <Container style={{backgroundColor: '#D4D8D8'}}>
+      <Accordion
+        dataArray={state}
+        animation={true}
+        expanded={[]}
+        renderHeader={_renderHeader}
+        renderContent={_renderContent}
+        style={styles.accrodion}
+      />
+
+      <Footer style={{backgroundColor: '#D4D8D8'}}>
+        <FooterTab style={styles.footartab}>
           <Text
             onPress={() => Linking.openURL(`tel:`)}
-            style={{fontWeight: 'bold', color: 'green', fontSize: 17}}>
+            style={styles.footerText}>
             Keypad
           </Text>
 
-          <Text style={{fontWeight: 'bold', color: 'green', fontSize: 17}}>
+          <Text style={styles.footerText} onPress={() => alert('recent')}>
             Recent
           </Text>
 
-          <Text style={{fontWeight: 'bold', color: 'green', fontSize: 17}}>
+          <Text style={styles.footerText} onPress={() => alert('recent')}>
             Contacts
           </Text>
         </FooterTab>
@@ -188,25 +195,28 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     padding: 5,
 
-    fontFamily: 'sans-serif-medium',
+    fontFamily: 'sans-serif',
   },
   headMain: {
     flexDirection: 'row',
     justifyContent: 'space-between',
 
     padding: 3,
-    borderBottomWidth: 0.15,
-    borderTopWidth: 0.1,
-    fontFamily: 'sans-serif-medium',
+
+    // borderBottomWidth: 0.15,
+    // borderTopWidth: 0.15,
+    fontFamily: 'sans-serif',
     marginLeft: 5,
     marginTop: 5,
+
+    borderBottomWidth: 0.15,
   },
   addtoContact: {
     textAlign: 'center',
     fontSize: 17,
     color: 'green',
     fontWeight: 'bold',
-    fontFamily: 'sans-serif-medium',
+    fontFamily: 'sans-serif',
   },
   contactDropdown: {
     display: 'flex',
@@ -215,8 +225,24 @@ const styles = StyleSheet.create({
     marginLeft: 50,
     marginRight: 50,
     marginTop: 10,
-    fontFamily: 'sans-serif-medium',
+    fontFamily: 'sans-serif',
   },
 
   clrWhite: {color: 'white'},
+  accrodion: {
+    padding: 15,
+    backgroundColor: 'white',
+    marginTop: 20,
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
+  },
+  footartab: {
+    backgroundColor: '#D4D8D8',
+    justifyContent: 'space-between',
+    textAlign: 'center',
+    padding: 8,
+    marginLeft: 40,
+    marginRight: 40,
+  },
+  footerText: {fontWeight: 'bold', color: 'green', fontSize: 19},
 });
