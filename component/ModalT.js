@@ -29,17 +29,21 @@ import {
   SectionList,
   TouchableOpacity,
 } from 'react-native';
+import {Linking} from 'react-native';
+
 import SectionListContacts from 'react-native-sectionlist-contacts';
 import axios from 'axios';
 import {getColorByLetter} from './ColorGenerator';
-function ExampleView() {
+import {NavigationContainer} from '@react-navigation/native';
+function ExampleView(props) {
   const [iscontactSaved, setcontactSaved] = useState(false);
   const [showContent, setshowContent] = useState(false);
+  const [contactsArrayData, setContactsArrayData] = useState([]);
+  const [contactChildData, setcontactChildData] = useState([]);
   let sectionList = useRef([]);
   const [data, setdata] = useState([]);
   const hiddenListRef = useRef([]);
 
-  const bounce = () => {};
   useEffect(() => {
     axios
       .get('https://jsonplaceholder.typicode.com/users')
@@ -47,16 +51,9 @@ function ExampleView() {
         setdata(res.data);
       })
       .catch(err => console.log(`err`, err));
+    getdata();
   }, []);
-
-  const _renderItem = (item, index, section) => {
-    // console.log('---custom-renderItem--', item, index, section);
-    return (
-      <View style={{backgroundColor: ''}}>
-        <Text>{item.name}</Text>
-      </View>
-    );
-  };
+  //for section list
   let getdata = () => {
     let contactsArray = [];
     let aCode = 'A'.charCodeAt(0);
@@ -65,27 +62,70 @@ function ExampleView() {
       let obj = {
         title: currchar,
       };
-      let currntcontacts = data.filter(item => {
+      let currntContacts = data.filter(item => {
+        console.log(`item test filter`, item);
+        item.isShown = false;
+
+        // let currentCh = item.name[0].toUpperCase() === currchar;
+        // let dataObj = {
+        //   isShown,
+        //   currentCh,
+        // };
+        // if (item.name[0].toUpperCase() === currchar) {
+        //   return dataObj;
+        // }
         return item.name[0].toUpperCase() === currchar;
+        // return dataObj;
       });
-      if (currntcontacts.length > 0) {
-        currntcontacts.sort((a, b) => a.name.localeCompare(b.name));
-        obj.data = currntcontacts;
+      console.log(`currntContacts`, currntContacts);
+      if (currntContacts.length > 0) {
+        currntContacts.sort((a, b) => a.name.localeCompare(b.name));
+        obj.data = currntContacts;
         contactsArray.push(obj);
       }
     }
-    return contactsArray;
+    setContactsArrayData(contactsArray);
+    // return contactsArray;
   };
-  console.log(`getdata`, getdata);
+
+  const getContactInfo = (item, childItem) => {
+    console.log(`item`, item.section.title);
+    console.log(`data`, data);
+    console.log(`item array`, item);
+    console.log('childItem', childItem);
+
+    for (let i = 0; i < contactsArrayData.length; i++) {
+      const element = contactsArrayData[i];
+
+      if (element.title == item.section.title) {
+        for (let j = 0; j < element.data.length; j++) {
+          const childData = element.data[j];
+          if (element.data[j].id == childItem.id) {
+            element.data[i].isShown = true;
+            // console.log(`element child`, (element.data.isShown = true));
+          }
+        }
+      }
+      console.log(`element`, element);
+      // setContactsArrayData(element);
+    }
+  };
+
+  console.log(`contactsArrayData`, contactsArrayData);
+
   const _renderHeader = item => {
+    console.log(`renderHeader`, item);
     const name = item.item.name;
+
+    const phone = item.item.phone;
+    console.log(`phone`, phone);
     let colo = getColorByLetter(name[0]);
 
     return (
       <View style={{marginLeft: 5, marginRight: 5, borderRadius: 20}}>
         <TouchableOpacity
           style={{backgroundColor: ''}}
-          onPress={() => setshowContent(showContent != true)}
+          onPress={() => getContactInfo(item, item.item)}
           // onPress={() => console.log(` item.item.name`, item.item.id)}
         >
           <List style={styles.headMain}>
@@ -102,7 +142,7 @@ function ExampleView() {
                   <Icon
                     style={{color: 'green', fontSize: 14, marginTop: 5}}
                     type="FontAwesome"
-                    // name="phone"
+                    name="phone"
                   />
                   <Text
                     style={{
@@ -122,7 +162,9 @@ function ExampleView() {
           </List>
         </TouchableOpacity>
 
-        {showContent ? (
+        {/* {typeof contactChildData !== 'undefined' ? ( */}
+
+        {item.item.isShown == true ? (
           <Animatable.View
             // ref={el => (hiddenListRef.current[index] = el)}
             style={{
@@ -132,7 +174,7 @@ function ExampleView() {
             }}
             animation="slideInDown"
             duration={100}>
-            {iscontactSaved ? (
+            {/* {iscontactSaved ? (
               <Text style={styles.addtoContact}>
                 <Icon
                   style={{color: 'green', fontSize: 17}}
@@ -148,10 +190,9 @@ function ExampleView() {
                   fontSize: 17,
                   fontFamily: 'sans-serif',
                 }}>
-                {/* mobile {item.phone} */}
-                9087986876
+                mobile {phone}
               </Text>
-            )}
+            )} */}
 
             <View style={styles.contactDropdown}>
               <View style={styles.biWhite}>
@@ -180,14 +221,12 @@ function ExampleView() {
                   style={{color: 'green'}}
                 />
               </View>
-              <View
-                rounded
-                style={styles.biWhite}
-                onPress={() => alert('blok')}>
+              <View rounded style={styles.biWhite}>
                 <Icon
                   type="FontAwesome5"
                   name="info-circle"
                   style={{color: 'gray'}}
+                  onPress={() => props.navigation.navigate('contactdetails')}
                 />
               </View>
             </View>
@@ -201,6 +240,7 @@ function ExampleView() {
     );
   };
 
+  // console.log(`contactChildData`, contactChildData);
   return (
     <Container>
       <ScrollView>
@@ -212,10 +252,9 @@ function ExampleView() {
 
               marginTop: 20,
             }}
-            sections={getdata()}
-            // keyExtractor={(item, index, console.log(`object`, index))}
-
-            keyExtractor={item => console.log(`index key--`, item)}
+            sections={contactsArrayData}
+            keyExtractor={(item, index) => console.log(`index`, item)}
+            // keyExtractor={item => console.log(`index key--`, item.id)}
             renderSectionHeader={({section, index}) => (
               <View style={{backgroundColor: '', padding: 10}}>
                 <Text style={{backgroundColor: '#E8F3F3'}}>
@@ -269,10 +308,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
 
     padding: 3,
-    // backgroundColor: '',
 
-    // borderBottomWidth: 0.15,
-    // borderTopWidth: 0.15,
     fontFamily: 'sans-serif',
     marginLeft: 5,
     marginTop: 5,
