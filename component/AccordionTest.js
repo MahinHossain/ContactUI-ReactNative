@@ -66,6 +66,7 @@ export default function AccordionTest() {
                   type="FontAwesome"
                   name="phone"
                 />
+
                 <Text
                   style={{
                     color: 'green',

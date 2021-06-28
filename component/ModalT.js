@@ -22,6 +22,8 @@ import {
   FooterTab,
   Footer,
 } from 'native-base';
+
+import {Data} from './Data';
 import {
   TouchableWithoutFeedback,
   ScrollView,
@@ -31,28 +33,10 @@ import {
 } from 'react-native';
 import {Linking} from 'react-native';
 
-import SectionListContacts from 'react-native-sectionlist-contacts';
-import axios from 'axios';
 import {getColorByLetter} from './ColorGenerator';
-import {NavigationContainer} from '@react-navigation/native';
 function ExampleView(props) {
   const [iscontactSaved, setcontactSaved] = useState(false);
-  const [showContent, setshowContent] = useState(false);
-  const [contactsArrayData, setContactsArrayData] = useState([]);
-  const [contactChildData, setcontactChildData] = useState([]);
-  let sectionList = useRef([]);
-  const [data, setdata] = useState([]);
-  const hiddenListRef = useRef([]);
 
-  useEffect(() => {
-    axios
-      .get('https://jsonplaceholder.typicode.com/users')
-      .then(res => {
-        setdata(res.data);
-      })
-      .catch(err => console.log(`err`, err));
-    getdata();
-  }, []);
   //for section list
   let getdata = () => {
     let contactsArray = [];
@@ -62,185 +46,123 @@ function ExampleView(props) {
       let obj = {
         title: currchar,
       };
-      let currntContacts = data.filter(item => {
-        console.log(`item test filter`, item);
-        item.isShown = false;
-
-        // let currentCh = item.name[0].toUpperCase() === currchar;
-        // let dataObj = {
-        //   isShown,
-        //   currentCh,
-        // };
-        // if (item.name[0].toUpperCase() === currchar) {
-        //   return dataObj;
-        // }
+      let currntContacts = Data.filter(item => {
         return item.name[0].toUpperCase() === currchar;
-        // return dataObj;
       });
-      console.log(`currntContacts`, currntContacts);
       if (currntContacts.length > 0) {
         currntContacts.sort((a, b) => a.name.localeCompare(b.name));
         obj.data = currntContacts;
         contactsArray.push(obj);
       }
     }
-    setContactsArrayData(contactsArray);
-    // return contactsArray;
+
+    return contactsArray;
   };
-
-  const getContactInfo = (item, childItem) => {
-    console.log(`item`, item.section.title);
-    console.log(`data`, data);
-    console.log(`item array`, item);
-    console.log('childItem', childItem);
-
-    for (let i = 0; i < contactsArrayData.length; i++) {
-      const element = contactsArrayData[i];
-
-      if (element.title == item.section.title) {
-        for (let j = 0; j < element.data.length; j++) {
-          const childData = element.data[j];
-          if (element.data[j].id == childItem.id) {
-            element.data[i].isShown = true;
-            // console.log(`element child`, (element.data.isShown = true));
-          }
-        }
-      }
-      console.log(`element`, element);
-      // setContactsArrayData(element);
-    }
-  };
-
-  console.log(`contactsArrayData`, contactsArrayData);
 
   const _renderHeader = item => {
-    console.log(`renderHeader`, item);
-    const name = item.item.name;
-
-    const phone = item.item.phone;
-    console.log(`phone`, phone);
-    let colo = getColorByLetter(name[0]);
+    let colo = getColorByLetter(item.username[0]);
 
     return (
-      <View style={{marginLeft: 5, marginRight: 5, borderRadius: 20}}>
-        <TouchableOpacity
-          style={{backgroundColor: ''}}
-          onPress={() => getContactInfo(item, item.item)}
-          // onPress={() => console.log(` item.item.name`, item.item.id)}
-        >
-          <List style={styles.headMain}>
-            <View style={[styles.headerIcon, {backgroundColor: colo}]}>
-              <Text>{name[0]}</Text>
-            </View>
+      <View>
+        <List style={styles.headMain}>
+          <View style={[styles.headerIcon, {backgroundColor: colo}]}>
+            <Text>{item.username[0]}</Text>
+          </View>
 
-            <View style={{marginLeft: 9}}>
-              <Text style={styles.headTitle}>{name}</Text>
+          <View style={{marginLeft: 9}}>
+            <Text style={(styles.headTitle, {})}>{item.name}</Text>
 
-              {iscontactSaved && (
-                <View
-                  style={{display: 'flex', flexDirection: 'row', marginTop: 0}}>
-                  <Icon
-                    style={{color: 'green', fontSize: 14, marginTop: 5}}
-                    type="FontAwesome"
-                    name="phone"
-                  />
-                  <Text
-                    style={{
-                      color: 'green',
-                      fontSize: 14,
-                      marginLeft: 5,
-                    }}>
-                    Unsaved
-                  </Text>
-                </View>
-              )}
-            </View>
-
-            <Right>
-              <Text note>3:41pm</Text>
-            </Right>
-          </List>
-        </TouchableOpacity>
-
-        {/* {typeof contactChildData !== 'undefined' ? ( */}
-
-        {item.item.isShown == true ? (
-          <Animatable.View
-            // ref={el => (hiddenListRef.current[index] = el)}
-            style={{
-              marginLeft: 20,
-              marginTop: 0,
-              padding: 10,
-            }}
-            animation="slideInDown"
-            duration={100}>
-            {/* {iscontactSaved ? (
-              <Text style={styles.addtoContact}>
+            {iscontactSaved && (
+              <View
+                style={{display: 'flex', flexDirection: 'row', marginTop: 0}}>
                 <Icon
-                  style={{color: 'green', fontSize: 17}}
-                  type="FontAwesome"
-                  name="plus"
-                />
-                Add to contact
-              </Text>
-            ) : (
-              <Text
-                style={{
-                  textAlign: 'center',
-                  fontSize: 17,
-                  fontFamily: 'sans-serif',
-                }}>
-                mobile {phone}
-              </Text>
-            )} */}
-
-            <View style={styles.contactDropdown}>
-              <View style={styles.biWhite}>
-                <Icon
+                  style={{color: 'green', fontSize: 14, marginTop: 5}}
                   type="FontAwesome"
                   name="phone"
-                  style={{color: 'green'}}
-                  onPress={() => Linking.openURL(`tel:${item.phone}`)}
                 />
+
+                <Text
+                  style={{
+                    color: 'green',
+                    fontSize: 14,
+                    marginLeft: 5,
+                  }}>
+                  Unsaved
+                </Text>
               </View>
-              <View style={styles.biWhite}>
-                <Icon
-                  type="FontAwesome5"
-                  name="comment-alt"
-                  style={{color: '#7DCAF8'}}
-                  onPress={() => Linking.openURL(`sms:${item.phone}`)}
-                />
-              </View>
-              <View
-                rounded
-                style={styles.biWhite}
-                onPress={() => alert('blok')}>
-                <Icon
-                  type="FontAwesome5"
-                  name="video"
-                  style={{color: 'green'}}
-                />
-              </View>
-              <View rounded style={styles.biWhite}>
-                <Icon
-                  type="FontAwesome5"
-                  name="info-circle"
-                  style={{color: 'gray'}}
-                  onPress={() => props.navigation.navigate('contactdetails')}
-                />
-              </View>
-            </View>
-          </Animatable.View>
-        ) : (
-          <></>
-        )}
+            )}
+          </View>
+
+          <Right>
+            <Text note>3:41pm</Text>
+          </Right>
+        </List>
       </View>
 
       //
     );
   };
 
-  // console.log(`contactChildData`, contactChildData);
+  const rc_test = item => {
+    return (
+      <Animatable.View
+        style={{
+          marginLeft: 20,
+          marginTop: 0,
+          padding: 10,
+        }}
+        animation="fadeInDown"
+        duration={800}>
+        <View style={styles.contactDropdown}>
+          <View style={styles.biWhite}>
+            <Icon
+              type="FontAwesome"
+              name="phone"
+              style={{color: 'green'}}
+              onPress={() => Linking.openURL(`tel:${item.phone}`)}
+            />
+          </View>
+          <View style={styles.biWhite}>
+            <Icon
+              type="FontAwesome5"
+              name="comment-alt"
+              style={{color: '#7DCAF8'}}
+              onPress={() => Linking.openURL(`sms:${item.phone}`)}
+            />
+          </View>
+          <View rounded style={styles.biWhite} onPress={() => alert('blok')}>
+            <Icon type="FontAwesome5" name="video" style={{color: 'green'}} />
+          </View>
+          <View rounded style={styles.biWhite}>
+            <Icon
+              type="FontAwesome5"
+              name="info-circle"
+              style={{color: 'gray'}}
+              onPress={() => props.navigation.navigate('contactdetails')}
+            />
+          </View>
+        </View>
+      </Animatable.View>
+    );
+  };
+
+  const accorF = item => {
+    console.log(`item.section.data`, item.section.data);
+    return (
+      <View>
+        <Content>
+          <Accordion
+            style={{backgroundColor: '', padding: 10}}
+            dataArray={item.section.data}
+            expanded={[]}
+            animation={true}
+            renderHeader={_renderHeader}
+            renderContent={rc_test}
+          />
+        </Content>
+      </View>
+    );
+  };
   return (
     <Container>
       <ScrollView>
@@ -252,18 +174,16 @@ function ExampleView(props) {
 
               marginTop: 20,
             }}
-            sections={contactsArrayData}
-            keyExtractor={(item, index) => console.log(`index`, item)}
-            // keyExtractor={item => console.log(`index key--`, item.id)}
+            sections={getdata()}
+            keyExtractor={(item, index) => item + index}
             renderSectionHeader={({section, index}) => (
               <View style={{backgroundColor: '', padding: 10}}>
                 <Text style={{backgroundColor: '#E8F3F3'}}>
                   {section.title}
                 </Text>
-                {console.log(`index`, index)}
               </View>
             )}
-            renderItem={_renderHeader}
+            renderItem={accorF}
           />
         </View>
       </ScrollView>

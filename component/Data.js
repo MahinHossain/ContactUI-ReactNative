@@ -1,0 +1,16 @@
+export const Data = [
+  {id: 1, name: 'mahin hossain', phone: '12132142', username: 'mahin'},
+  {id: 2, name: 'Chanchal hossain', phone: '12132142', username: 'Chanchal'},
+  {id: 3, name: 'Chal khan', phone: '12132142', username: 'chal'},
+  {id: 4, name: 'David hossain', phone: '12132142', username: 'David'},
+  {id: 5, name: 'Mamun khan', phone: '5656353453', username: 'Mamun'},
+  {id: 6, name: 'Naeem hossain', phone: '55464563', username: 'Naeem'},
+  {id: 7, name: 'Rakib  hasan', phone: '36457456457', username: 'Jahid'},
+  {id: 8, name: 'Sakib  hasan', phone: '36457456457', username: 'Jahid'},
+  {id: 9, name: 'Mehedi  hossain', phone: '36457456457', username: 'Jahid'},
+  {id: 10, name: 'Islam  hasan', phone: '456457', username: 'Mehedi'},
+  {id: 11, name: 'Akash  hodssain', phone: '57456457', username: 'Akash'},
+  {id: 12, name: 'Shaker  hossain', phone: '36457456457', username: 'Shaker'},
+  {id: 13, name: 'Moon  hasan', phone: '457456457', username: 'Moon'},
+  {id: 14, name: 'Rana  khan', phone: '6457456457', username: 'Rana'},
+];
